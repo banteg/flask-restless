@@ -402,6 +402,9 @@ def extract_error_messages(exception):
     # 'errors' comes from sqlalchemy_elixir_validations
     if hasattr(exception, 'errors'):
         return exception.errors
+    # 'messages' come from Marshmallow
+    if hasattr(exception, 'messages'):
+        return exception.messages
     # 'message' comes from savalidation
     if hasattr(exception, 'message'):
         # TODO this works only if there is one validation error
