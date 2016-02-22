@@ -533,7 +533,7 @@ class API(ModelView):
                  validation_exceptions=None, results_per_page=10,
                  max_results_per_page=100, post_form_preprocessor=None,
                  preprocessors=None, postprocessors=None, primary_key=None,
-                 serializer=None, deserializer=None, *args, **kw):
+                 serializer=None, deserializer=None, schema=None, *args, **kw):
         """Instantiates this view with the specified attributes.
 
         `session` is the SQLAlchemy session in which all database transactions
@@ -680,6 +680,10 @@ class API(ModelView):
         self.results_per_page = results_per_page
         self.max_results_per_page = max_results_per_page
         self.primary_key = primary_key
+        # Guess serializer/deserializer from Marshmallow schema
+        if schema:
+            serializer = lambda x: schema.dump(x).data
+            deserializer = lambda x: schema.load(x).data
         # Use our default serializer and deserializer if none are specified.
         if serializer is None:
             self.serialize = self._inst_to_dict

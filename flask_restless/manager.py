@@ -329,7 +329,7 @@ class APIManager(object):
                              max_results_per_page=100,
                              post_form_preprocessor=None, preprocessors=None,
                              postprocessors=None, primary_key=None,
-                             serializer=None, deserializer=None):
+                             serializer=None, deserializer=None, schema=None):
         """Creates and returns a ReSTful API interface as a blueprint, but does
         not register it on any :class:`flask.Flask` application.
 
@@ -590,7 +590,7 @@ class APIManager(object):
                                results_per_page, max_results_per_page,
                                post_form_preprocessor, preprocessors_,
                                postprocessors_, primary_key, serializer,
-                               deserializer)
+                               deserializer, schema)
         # suffix an integer to apiname according to already existing blueprints
         blueprintname = APIManager._next_blueprint_name(app.blueprints,
                                                         apiname)
